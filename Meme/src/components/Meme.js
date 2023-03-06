@@ -3,27 +3,35 @@ import { memeData } from "../MemeData"
 
 
 export function Meme(){
-    const [data, urlFunc] = React.useState({
+    const [meme, setMeme] = React.useState({
         topText: "",
         bottomText: "",
-        img: "",
+        randomImage: "",
         })
 
     const [allMemImages ,setAllMemeImages] = React.useState({
         memeData
     })
-    function memeImage(){
+    function getMemeImage(){
         const allMemImages = memeData.data.memes
         const randomNumber = Math.floor(Math.random() * allMemImages.length)
         const url = allMemImages[randomNumber].url
-        urlFunc( 
+        setMeme( 
             prevData => ({
             ...prevData,
-            img: url
+            randomImage: url
             })
         )
     }
 
+    function handleChane(event){
+        const {name, value} = event.target
+        setMeme(prevData =>({
+            ...prevData,
+            [name]:value
+         })
+        )
+    }
     return(
         <main>
             <div className="form">
@@ -32,19 +40,25 @@ export function Meme(){
                     type="text"
                     placeholder="Top text"
                     className="form--inputs" 
+                    name="topText"
+                    value={meme.topText}
+                    onChange = {handleChane}
                     />
                 <input 
                     type="text"
                     placeholder="Bottop text"
                     className="form--inputs" 
+                    name="bottomText"
+                    value={meme.bottomText}
+                    onChange = {handleChane}
                 />
                 <button 
                     className="form--bottom"
-                    onClick={memeImage}
+                    onClick={getMemeImage}
                 >
                     Get a new meme image  🖼
                 </button>
-                <img src={data.img}/>
+                <img src={meme.randomImage} className = "meme--image"/>
             </div>
         </main>
     )
