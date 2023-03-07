@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import boxes from './boxes';
+import React from 'react';
+import './style.css';
+import Box from './Box';
 
 function App() {
+  
+  const [squares, setSquares] = React.useState(boxes)
+  
+  function tuggle(id){
+    return ()=>{
+      setSquares(prevSquares => {
+        return prevSquares.reduce((prevValue, currentValue) =>{ 
+          if (id === currentValue.id) {
+            const new_square = {...currentValue ,
+            on: !currentValue.on}
+            prevValue.push(new_square)
+          }else{
+            prevValue.push(currentValue)
+          }
+          return prevValue
+        }
+        ,[])
+      }
+      
+      )
+    }
+  }
+  function tuggle2(id){
+    return ()=>
+      setSquares(prevSquares => {
+        return prevSquares.map((square)=> {
+          return square.id === id ? {...square, on: !square.on}: square 
+        })
+      })
+}
+  const squareElements = squares.map(square=> (
+    <Box key={square.id} on={square.on} toggle = {tuggle(square.id)}></Box>
+  ))
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      {squareElements}
+    </main>
   );
 }
 
