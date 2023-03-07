@@ -6,7 +6,8 @@ import Box from './Box';
 function App() {
   
   const [squares, setSquares] = React.useState(boxes)
-  
+
+  //one option..
   function tuggle(id){
     return ()=>{
       setSquares(prevSquares => {
@@ -26,15 +27,16 @@ function App() {
       )
     }
   }
+  //two option..
   function tuggle2(id){
     return ()=>
       setSquares(prevSquares => {
-        return prevSquares.map((square)=> {
+        return prevSquares.map((square) => {
           return square.id === id ? {...square, on: !square.on}: square 
         })
       })
-}
-  const squareElements = squares.map(square=> (
+}∂
+  const squareElements = squares.map(square => (
     <Box key={square.id} on={square.on} toggle = {tuggle(square.id)}></Box>
   ))
   return (
