@@ -27,10 +27,24 @@ export function Meme(){
          })
         )
     }
-    React.useEffect(()=>{fetch("https://api.imgflip.com/get_memes")
-    .then(res => res.json())
-    .then(data => setAllMemeImages(data.data.memes))},[])
-    console.log(allMemImages)
+
+    //sync
+    // React.useEffect(()=>{fetch("https://api.imgflip.com/get_memes")
+    // .then(res => res.json())
+    // .then(data => setAllMemeImages(data.data.memes))},[])
+
+    //async
+    React.useEffect(()=> {
+        async function getMemes() {
+            const res = await fetch("https://api.imgflip.com/get_memes")
+            const data = await res.json()
+            setAllMemeImages(data.data.memes)
+        }
+        getMemes()
+        //distractor func
+        return () => {}
+    }
+        ,[])
     return(
         <main>
             <div className="form">
