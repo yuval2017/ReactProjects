@@ -33,7 +33,7 @@ export function Meme(){
     // .then(res => res.json())
     // .then(data => setAllMemeImages(data.data.memes))},[])
 
-    //async
+    //async with use affect, async function return promise as return value
     React.useEffect(()=> {
         async function getMemes() {
             const res = await fetch("https://api.imgflip.com/get_memes")
