@@ -12,9 +12,7 @@ export default function Editor({ currentNote, updateNote }) {
         strikethrough: true,
         tasklists: true,
     })  
-    React.useEffect (() => {
-        console.log("alon")
-    }, [])
+
     return (
         <section className="pane editor">
             <ReactMde
